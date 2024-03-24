@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista zadań</title>
+    <link rel="stylesheet" th:href="@{style.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: header}">
+</header>
+<div style="text-align: center;">
+    <a th:href="@{/}" style="display: inline-block;">Wróć do strony głównej</a>
+</div>
+<main>
+    <h2>Zadania pozostałe do realizacji</h2>
+    <ul>
+        <li th:each="task : ${allTasks}">
+            <form th:action="@{/task/{id}/update(id=${task.id})}" method="post">
+                <input type="hidden" name="id" th:value="${task.id}">
+
+                <span th:style="${task.deadline.isBefore(#temporals.createNow())} ?
+                'background-color: red;' : 'background-color: green;'"
+                      th:text="|Nazwa zadania: ${task.name}, Opis: ${task.description}, Oczekiwana data realizacji: ${#temporals.format(task.deadline, 'yyyy-MM-dd HH:mm')}|">
+                </span>
+
+                <br>
+                Oznacz zadanie jako zrealizowane
+                <input type="submit" value="Oznacz jako zrealizowane">
+                <a th:href="@{/task/{id}/edit(id=${task.id})}">Edytuj zadanie</a>
+            </form>
+            <br>
+        </li>
+    </ul>
+</main>
+<footer th:replace="~{fragments :: footer}">
+</footer>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formularz dodawania</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: header}">
+</header>
+
+<div style="text-align: center;">
+    <a th:href="@{/}" style="display: inline-block;">Wróć do strony głównej</a>
+</div>
+
+<main style="text-align: center;">
+    <form th:action="@{/add}" method="post" style="display: inline-block; text-align: center;">
+        <span>Dodaj zadanie</span>
+        <br>
+        <input type="text" name="name" placeholder="Podaj nazwę zadania">
+        <br>
+        Podaj oczekiwaną datę realizacji zadania
+        <br>
+        <input type="datetime-local" name="deadline" placeholder="Podaj datę realizacji zadania">
+        <br>
+        <textarea name="description" placeholder="Podaj opis zadania" rows="3"></textarea>
+        <br>
+        <button type="submit">Dodaj zadanie</button>
+    </form>
+    </main>
+
+<footer th:replace="~{fragments :: footer}">
+</footer>
+</body>
+</html>
