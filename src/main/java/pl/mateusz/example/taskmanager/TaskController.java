@@ -55,18 +55,20 @@ public class TaskController {
 
     @GetMapping("/task/{id}/edit")
     public String displayEditionForm(@PathVariable Long id, Model model) {
-        Optional<Task> optionalTask = taskService.getTaskById(id);
-        Task task = optionalTask.orElseThrow(TaskNotFoundException::new);
+        Optional<TaskDto> optionalTask = taskService.getTaskById(id);
+        TaskDto task = optionalTask.orElseThrow(TaskNotFoundException::new);
         model.addAttribute("task", task);
         return "editform";
     }
 
     @PostMapping("/task/{id}/edit")
     public String editTask(@PathVariable Long id, String name, String description, LocalDateTime deadline) {
-        Optional<Task> optionalTask = taskService.getTaskById(id);
-        Task task = optionalTask.orElseThrow(TaskNotFoundException::new);
+        Optional<TaskDto> optionalTask = taskService.getTaskById(id);
+        TaskDto task = optionalTask.orElseThrow(TaskNotFoundException::new);
         taskService.editTask(task.getId(), name, description, deadline);
-        return "redirect:/";
+        return "redirect:/list";
 
     }
 }
+
+

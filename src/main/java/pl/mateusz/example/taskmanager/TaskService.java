@@ -19,7 +19,7 @@ public class TaskService {
     }
 
     @Transactional
-    public void add(TaskDto taskDto) {
+    public void add(TaskDto taskDto)  {
         Task task = new Task(taskDto.getName(),
                 taskDto.getDescription(),
                 taskDto.getDeadline(),
@@ -29,20 +29,23 @@ public class TaskService {
 
     public List<TaskDto> getAllTasksToDo() {
         return taskRepository.findAllTasksToDo()
-                .stream().map(task -> new TaskDto(task.getId(), task.getName(),
-                        task.getDescription(), task.getDeadline()))
+                .stream().map(TaskService::convertToDto)
                 .collect(Collectors.toList());
     }
 
     public List<TaskDto> getAllTasksDone() {
         return taskRepository.findAllTasksDone()
-                .stream().map(task -> new TaskDto(task.getId(), task.getName(),
-                        task.getDescription(), task.getDeadline()))
+                .stream().map(TaskService::convertToDto)
                 .collect(Collectors.toList());
     }
 
-    public Optional<Task> getTaskById(Long id) {
-        return taskRepository.getTaskById(id);
+    private static TaskDto convertToDto(Task task) {
+        return new TaskDto(task.getId(), task.getName(),
+                task.getDescription(), task.getDeadline());
+    }
+
+    public Optional<TaskDto> getTaskById(Long id) {
+        return taskRepository.getTaskById(id).map(TaskService::convertToDto);
     }
 
     @Transactional
@@ -55,7 +58,7 @@ public class TaskService {
 
     @Transactional
     public void editTask(Long id, String name, String description, LocalDateTime deadline) {
-        Optional<Task> optionalTask = getTaskById(id);
+        Optional<Task> optionalTask = taskRepository.getTaskById(id);
         Task task = optionalTask.orElseThrow(TaskNotFoundException::new);
         task.setName(name);
         task.setDescription(description);

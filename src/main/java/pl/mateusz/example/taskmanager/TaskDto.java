@@ -9,6 +9,7 @@ public class TaskDto {
     private Long id;
     private String name;
     private String description;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime deadline;
     private boolean isDone;
 

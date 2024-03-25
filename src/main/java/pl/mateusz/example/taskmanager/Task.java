@@ -16,7 +16,6 @@ public class Task {
     private Long id;
     private String name;
     private String description;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime deadline;
     private boolean isDone;
 

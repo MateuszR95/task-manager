@@ -14,16 +14,16 @@
 </div>
 
 <main style="text-align: center;">
-    <form th:action="@{/task/{id}/edit(id=${task.id})}" method="post" style="display: inline-block; text-align: center;">
+    <form th:action="@{/task/{id}/edit(id=${task.id})}" th:object="${task}" method="post" style="display: inline-block; text-align: center;">
         <span>Edytuj zadanie</span>
         <br>
-        <input type="text" name="name" th:placeholder="${task.name}">
+        <input type="text" th:field="*{name}">
         <br>
         Podaj oczekiwaną datę realizacji zadania
         <br>
-        <input type="datetime-local" name="deadline" th:placeholder="${task.deadline}">
+        <input type="datetime-local" th:field="*{deadline}">
         <br>
-        <textarea name="description" th:placeholder="${task.description}"></textarea>
+        <textarea th:field="*{description}"></textarea>
         <br>
         <button type="submit">Edytuj zadanie</button>
     </form>
