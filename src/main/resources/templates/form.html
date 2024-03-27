@@ -23,10 +23,16 @@
         <br>
         <input type="datetime-local" name="deadline" placeholder="Podaj datę realizacji zadania">
         <br>
+        <div th:if="${error}" style="color: red;">
+            <span th:text="${error}"></span>
+        </div>
         <textarea name="description" placeholder="Podaj opis zadania" rows="3"></textarea>
         <br>
         <button type="submit">Dodaj zadanie</button>
     </form>
+
+
+
     </main>
 
 <footer th:replace="~{fragments :: footer}">

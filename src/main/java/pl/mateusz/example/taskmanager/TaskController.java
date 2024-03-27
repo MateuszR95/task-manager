@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,14 +26,21 @@ public class TaskController {
     }
 
     @GetMapping("/form")
-    public String displayAddingForm() {
+    public String displayAddingForm(Model model) {
+        model.addAttribute("error", null);
         return "form";
     }
     @PostMapping("/add")
-    public String addTask(TaskDto taskDto) {
-        taskService.add(taskDto);
-        return "success";
+    public String addTask(TaskDto taskDto, Model model) {
+        try {
+            taskService.add(taskDto);
+            return "success";
+        } catch (PastDateException e) {
+            model.addAttribute("error", "Nie można dodać zadania z przeszłą datą");
+            return "form";
+        }
     }
+
     @GetMapping("/list")
     public String displayList(Model model) {
         List<TaskDto> allTasksToDo = taskService.getAllTasksToDo();

@@ -20,10 +20,14 @@ public class TaskService {
 
     @Transactional
     public void add(TaskDto taskDto)  {
+        if (taskDto.getDeadline().isBefore(LocalDateTime.now())) {
+            throw new PastDateException("Exception message");
+        }
         Task task = new Task(taskDto.getName(),
                 taskDto.getDescription(),
                 taskDto.getDeadline(),
                 taskDto.isDone());
+
         taskRepository.save(task);
     }
 
