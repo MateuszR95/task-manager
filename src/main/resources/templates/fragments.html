@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragmenty</title>
+</head>
+<body>
+<header th:fragment="header">
+    <img src="../static/logo.jpg" th:src="@{/logo.jpg}" alt="Logo aplikacji">
+    <p>Manager zadań</p>
+</header>
+<footer th:fragment="footer">
+    <p class="footer">TaskApp2024 - all rights reserved</p>
+</footer>
+</body>
+</html>

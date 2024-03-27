@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Archiwum zrealizowanych zadań</title>
+    <link rel="stylesheet" th:href="@{style.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: header}">
+</header>
+<div style="text-align: center;">
+    <a th:href="@{/}" style="display: inline-block;">Wróć do strony głównej</a>
+</div>
+<main>
+    <h2>Zrealizowane zadania</h2>
+    <ul>
+        <li th:each="task : ${doneTasks}">
+            <span th:text="|Nazwa zadania: ${task.name}, Opis: ${task.description},
+            Oczekiwana data realizacji ${#temporals.format(task.deadline, 'yyyy-MM-dd hh:mm')}| ">
+            </span>
+        </li>
+    </ul>
+</main>
+<footer th:replace="~{fragments :: footer}">
+</footer>
+</body>
+</html>
